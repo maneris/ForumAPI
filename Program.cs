@@ -15,12 +15,7 @@ builder.Services.AddTransient<IThreadsRepository,ThreadsRepository>();
 builder.Services.AddTransient<ITopicsRepository, TopicsRepository>();
 
 var app = builder.Build();
-/*using (var scope = app.Services.CreateScope())
-{
-    var db = scope.ServiceProvider.GetRequiredService<ForumDBContext>();
-    db.Database.Migrate();
-}
-*/
+
 app.UseRouting();
 app.MapControllers();
 

@@ -23,12 +23,12 @@ namespace ForumAPI.Data.Repositories
 
         public async Task<Threads> GetAsync(int topicId, int threadId)
         {
-            return await _dbContext.Threads.FirstOrDefaultAsync(o => o.TopicId == topicId && o.Id == threadId);
+            return await _dbContext.Threads.FirstOrDefaultAsync(o => o.Topic.Id == topicId && o.Id == threadId);
         }
 
         public async Task<List<Threads>> GetMultipleAsync(int topicId)
         {
-            return await _dbContext.Threads.Where(o => o.TopicId == topicId).ToListAsync();
+            return await _dbContext.Threads.Where(o => o.Topic.Id == topicId).ToListAsync();
         }
 
         public async Task InsertAsync(Threads thread)

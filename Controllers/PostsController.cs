@@ -10,9 +10,11 @@ namespace ForumAPI.Controllers
     public class PostsController : ControllerBase
     {
         private readonly IPostsRepository _postsRepository;
-        public PostsController(IPostsRepository PostsRepository)
+        private readonly IThreadsRepository _threadsRepository;
+        public PostsController(IPostsRepository PostsRepository, IThreadsRepository ThreadsRepository)
         {
             _postsRepository = PostsRepository;
+            _threadsRepository = ThreadsRepository;
         }
         /*
          *
@@ -52,8 +54,8 @@ namespace ForumAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Posts>> Post(int topicId,int threadId, Posts createpost)
         {
-            createpost.ThreadId =threadId;
-            createpost.TopicId=topicId;
+            Threads thread = await _threadsRepository.GetAsync(topicId,threadId);
+            createpost.Thread = thread;
             createpost.CreationDate = DateTime.Now;
             await _postsRepository.InsertAsync(createpost);
             return Created("", createpost);
