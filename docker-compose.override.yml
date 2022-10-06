@@ -1,0 +1,18 @@
+version: '3.4'
+
+services:
+  forumapi:
+    container_name: forumapi
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+    ports:
+      - "5082:80"
+
+  sqldata:
+    container_name: sqldata
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    environment:
+        SA_PASSWORD: "2Secure*Password2"
+        ACCEPT_EULA: "Y"
+    ports:
+        - "5440:1433"
