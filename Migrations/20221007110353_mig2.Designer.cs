@@ -4,6 +4,7 @@ using ForumAPI.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForumAPI.Migrations
 {
     [DbContext(typeof(ForumDBContext))]
-    partial class ForumDBContextModelSnapshot : ModelSnapshot
+    [Migration("20221007110353_mig2")]
+    partial class mig2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -37,12 +39,12 @@ namespace ForumAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ThreadsId")
+                    b.Property<int?>("ThreadId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ThreadsId");
+                    b.HasIndex("ThreadId");
 
                     b.ToTable("Posts");
                 });
@@ -104,7 +106,7 @@ namespace ForumAPI.Migrations
                 {
                     b.HasOne("ForumAPI.Data.Entities.Threads", "Thread")
                         .WithMany()
-                        .HasForeignKey("ThreadsId");
+                        .HasForeignKey("ThreadId");
 
                     b.Navigation("Thread");
                 });

@@ -80,15 +80,15 @@ namespace ForumAPI.Controllers
         {
             var topic = await _topicsRepository.GetAsync( id);
 
-            // 404
+            // 204
             if (topic == null)
-                return NotFound();
+                return NoContent();
 
             await _topicsRepository.DeleteAsync(topic);
 
 
-            // 204
-            return NoContent();
+            // 200
+            return Ok();
         }
 
     }

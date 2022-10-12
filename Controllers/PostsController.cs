@@ -58,6 +58,7 @@ namespace ForumAPI.Controllers
             createpost.Thread = thread;
             createpost.CreationDate = DateTime.Now;
             await _postsRepository.InsertAsync(createpost);
+            createpost.Thread = null;
             return Created("", createpost);
         }
 

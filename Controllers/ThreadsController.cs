@@ -55,9 +55,11 @@ namespace ForumAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Threads>> Post(int topicId, Threads createThread)
         {
-
+            Topics topic = await _topicsRepository.GetAsync(topicId);
+            createThread.Topic = topic;
             createThread.CreationDateTime = DateTime.Now;
             await _threadsRepository.InsertAsync(createThread);
+            createThread.Topic = null;
             return Created("", createThread);
 
         }
