@@ -1,14 +1,6 @@
 version: '3.4'
 
 services:
-  forumapi:
-    image: ${DOCKER_REGISTRY-}forumapi
-    build:
-      context: .
-      dockerfile: Dockerfile
-    depends_on:
-      - sqldata
- 
   sqldata:
     image: mcr.microsoft.com/mssql/server:2019-latest
     environment:
@@ -16,3 +8,11 @@ services:
         - ACCEPT_EULA=Y
     ports:
         - "5440:1433"
+
+  forumapi:
+    image: ${DOCKER_REGISTRY-}forumapi
+    build:
+      context: .
+      dockerfile: Dockerfile
+    depends_on:
+      - sqldata

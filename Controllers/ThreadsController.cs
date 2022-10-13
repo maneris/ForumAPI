@@ -11,9 +11,13 @@ namespace ForumAPI.Controllers
     public class ThreadsController : ControllerBase
     {
         private readonly IThreadsRepository _threadsRepository;
-        public ThreadsController(IThreadsRepository ThreadsRepository)
+        private readonly ITopicsRepository _topicsRepository;
+
+        public ThreadsController(IThreadsRepository ThreadsRepository, ITopicsRepository TopicsRepository)
         {
             _threadsRepository = ThreadsRepository;
+            _topicsRepository = TopicsRepository;
+
         }
         /*
          *
@@ -22,7 +26,7 @@ namespace ForumAPI.Controllers
            /api/v1/topics/{topicId}/threads/{id} GET 200
            /api/v1/topics/{topicId}/threads POST 201
            /api/v1/topics/{topicId}/threads/{id} PUT 200
-           /api/v1/topics/{topicId}/threads/{id} DELETE 200/204     *
+           /api/v1/topics/{topicId}/threads/{id} DELETE 200    *
          */
 
         // GET: api/v1/topics/{topicId}/threads
@@ -51,9 +55,11 @@ namespace ForumAPI.Controllers
         [HttpPost]
         public async Task<ActionResult<Threads>> Post(int topicId, Threads createThread)
         {
-            createThread.TopicId = topicId;
+            Topics topic = await _topicsRepository.GetAsync(topicId);
+            createThread.Topic = topic;
             createThread.CreationDateTime = DateTime.Now;
             await _threadsRepository.InsertAsync(createThread);
+            createThread.Topic = null;
             return Created("", createThread);
 
         }
@@ -87,8 +93,8 @@ namespace ForumAPI.Controllers
             await _threadsRepository.DeleteAsync(thread);
 
 
-            // 204
-            return NoContent();
+            // 200
+            return Ok();
         }
     }
 }

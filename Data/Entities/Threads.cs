@@ -6,7 +6,7 @@
         public string Title { get; set; }
         public string Description { get; set; }
         public DateTime CreationDateTime { get; set; }
-        public int TopicId { get; set; }
-        //public Topics Topic { get; set; }
+        public Topics? Topic { get; set; }
+        public int? TopicId { get; set; }
     }
 }
