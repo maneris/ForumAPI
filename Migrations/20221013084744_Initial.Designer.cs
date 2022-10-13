@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace ForumAPI.Migrations
 {
     [DbContext(typeof(ForumDBContext))]
-    [Migration("20221007110353_mig2")]
-    partial class mig2
+    [Migration("20221013084744_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -39,12 +39,12 @@ namespace ForumAPI.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ThreadId")
+                    b.Property<int?>("ThreadsId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ThreadId");
+                    b.HasIndex("ThreadsId");
 
                     b.ToTable("Posts");
                 });
@@ -106,7 +106,7 @@ namespace ForumAPI.Migrations
                 {
                     b.HasOne("ForumAPI.Data.Entities.Threads", "Thread")
                         .WithMany()
-                        .HasForeignKey("ThreadId");
+                        .HasForeignKey("ThreadsId");
 
                     b.Navigation("Thread");
                 });

@@ -23,7 +23,7 @@ namespace ForumAPI.Controllers
            /api/v1/topics/{topicId}/threads/{threadId}/posts/{id} GET 200
            /api/v1/topics/{topicId}/threads/{threadId}/posts POST 201
            /api/v1/topics/{topicId}/threads/{threadId}/posts/{id} PUT 200
-           /api/v1/topics/{topicId}/threads/{threadId}/posts/{id} DELETE 200/204     *
+           /api/v1/topics/{topicId}/threads/{threadId}/posts/{id} DELETE 200    *
          */
 
         // GET: /api/v1/topics/{topicId}/threads/{threadId}/posts
@@ -91,8 +91,8 @@ namespace ForumAPI.Controllers
             await _postsRepository.DeleteAsync(post);
 
 
-            // 204
-            return NoContent();
+            // 200
+            return Ok();
         }
     }
 }

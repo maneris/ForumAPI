@@ -33,7 +33,7 @@ namespace ForumAPI.Migrations
                     Title = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreationDateTime = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    TopicId = table.Column<int>(type: "int", nullable: false)
+                    TopicId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -42,8 +42,7 @@ namespace ForumAPI.Migrations
                         name: "FK_Threads_Topics_TopicId",
                         column: x => x.TopicId,
                         principalTable: "Topics",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -54,23 +53,22 @@ namespace ForumAPI.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CreationDate = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ThreadId = table.Column<int>(type: "int", nullable: false)
+                    ThreadsId = table.Column<int>(type: "int", nullable: true)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Posts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Posts_Threads_ThreadId",
-                        column: x => x.ThreadId,
+                        name: "FK_Posts_Threads_ThreadsId",
+                        column: x => x.ThreadsId,
                         principalTable: "Threads",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Posts_ThreadId",
+                name: "IX_Posts_ThreadsId",
                 table: "Posts",
-                column: "ThreadId");
+                column: "ThreadsId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Threads_TopicId",

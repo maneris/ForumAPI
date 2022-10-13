@@ -23,7 +23,7 @@ namespace ForumAPI.Controllers
            /api/topics/{id} GET 200
            /api/topics POST 201
            /api/topics/{id} PUT 200
-           /api/topics/{id} DELETE 200/204     *
+           /api/topics/{id} DELETE 200     *
          */
 
         // GET: api/v1/topics/

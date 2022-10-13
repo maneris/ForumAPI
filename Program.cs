@@ -19,6 +19,8 @@ using (var scope = app.Services.CreateScope())
 {
     var db = scope.ServiceProvider.GetRequiredService<ForumDBContext>();
     db.Database.Migrate();
+    SeedData.Initialize(scope.ServiceProvider);
+    
 }
 app.UseRouting();
 app.MapControllers();
