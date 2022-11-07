@@ -3,6 +3,7 @@ using ForumAPI.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using ForumAPI.Auth.Model;
+using ForumAPI.Data;
 
 namespace ForumAPI.Controllers
 {
@@ -32,17 +33,17 @@ namespace ForumAPI.Controllers
         // GET: api/v1/topics/
         [HttpGet]
         [Authorize(Roles = ForumRoles.AnonGuest)]
-        public async Task<IEnumerable<Topics>> Get()
+        public async Task<IEnumerable<TopicDto>> Get()
         {
             var threads = await _topicsRepository.GetMultipleAsync();
-            return threads;
+            return threads.Select(o => new TopicDto(o.Id,o.Title,o.Description,o.CreationDateTime));
         }
 
         // GET api/v1/topics/{id}
         [HttpGet("{id}")]
         [Authorize(Roles = ForumRoles.AnonGuest)]
 
-        public async Task<ActionResult<Threads>> Get( int id)
+        public async Task<ActionResult<TopicDto>> Get( int id)
         {
             var topic = await _topicsRepository.GetAsync(id);
             // 404
@@ -51,24 +52,29 @@ namespace ForumAPI.Controllers
                 return NotFound();
             }
             //200
-            return Ok(topic);
+            return Ok(new TopicDto(topic.Id, topic.Title, topic.Description, topic.CreationDateTime));
         }
 
         // POST api/v1/topics
         [HttpPost]
         [Authorize(Roles = ForumRoles.Admin)]
-        public async Task<ActionResult<Topics>> Post( Topics createTopic)
+        public async Task<ActionResult<TopicDto>> Post( CreateTopicDto createTopic)
         {
-            createTopic.CreationDateTime = DateTime.Now;
-            await _topicsRepository.InsertAsync(createTopic);
-            return Created("", createTopic);
+            
+            var topic = new Topics {
+                Title = createTopic.Title,
+                Description= createTopic.Description,
+                CreationDateTime = DateTime.Now
+            };
+            await _topicsRepository.InsertAsync(topic);
+            return Created("", new TopicDto(topic.Id,topic.Title,topic.Description,topic.CreationDateTime));
 
         }
 
         // PUT api/v1/topics/{id}
         [HttpPut("{id}")]
         [Authorize(Roles = ForumRoles.Admin)]
-        public async Task<ActionResult<Topics>> Put(int id, Topics updateTopic)
+        public async Task<ActionResult<TopicDto>> Put(int id, UpdateTopicDto updateTopic)
         {
             var topic = await _topicsRepository.GetAsync(id);
 
@@ -79,13 +85,13 @@ namespace ForumAPI.Controllers
             topic.Description = updateTopic.Description;
             await _topicsRepository.UpdateAsync(topic);
 
-            return Ok(topic);
+            return Ok(new TopicDto(topic.Id, topic.Title, topic.Description, topic.CreationDateTime));
         }
 
         // DELETE api/v1/topics/{id}
         [HttpDelete("{id}")]
         [Authorize(Roles = ForumRoles.Admin)]
-        public async Task<ActionResult<Topics>> Delete( int id)
+        public async Task<ActionResult<TopicDto>> Delete( int id)
         {
             var topic = await _topicsRepository.GetAsync( id);
 

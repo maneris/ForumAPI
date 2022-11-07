@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace ForumAPI.Data.Entities
 {
-    public class Posts
+    public class Posts : IUserOwnedResource
     {
         public int Id { get; set; }
         public string Description { get; set; }

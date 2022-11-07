@@ -1,6 +1,6 @@
 ﻿namespace ForumAPI.Auth.Model
 {
-    public class IUserOwnedResource
+    public interface IUserOwnedResource
     {
         public string UserId { get; }
     }

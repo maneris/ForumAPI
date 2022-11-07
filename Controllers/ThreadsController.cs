@@ -1,5 +1,6 @@
 ﻿using ForumAPI.Auth.Model;
 using ForumAPI.Data.Entities;
+using ForumAPI.Data;
 using ForumAPI.Data.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -37,16 +38,16 @@ namespace ForumAPI.Controllers
         // GET: api/v1/topics/{topicId}/threads
         [HttpGet]
         [Authorize(Roles = ForumRoles.AnonGuest)]
-        public async Task<IEnumerable<Threads>> Get(int topicId)
+        public async Task<IEnumerable<ThreadDto>> Get(int topicId)
         {
             var threads = await _threadsRepository.GetMultipleAsync(topicId);
-            return threads;
+            return threads.Select(o => new ThreadDto(o.Id, o.Title, o.Description, o.CreationDateTime));
         }
 
         // GET api/topics/{topicId}/threads/{id}
         [HttpGet("{id}")]
         [Authorize(Roles = ForumRoles.AnonGuest)]
-        public async Task<ActionResult<Threads>> Get(int topicId,int id)
+        public async Task<ActionResult<ThreadDto>> Get(int topicId,int id)
         {
             var threads = await _threadsRepository.GetAsync(topicId,id);
             // 404
@@ -55,28 +56,32 @@ namespace ForumAPI.Controllers
                 return NotFound();
             }
             //200
-            return threads;
+            return new ThreadDto(threads.Id, threads.Title, threads.Description, threads.CreationDateTime);
         }
 
         // POST api/v1/topics/{topicId}/threads
         [HttpPost]
         [Authorize(Roles = ForumRoles.AuthForumUser)]
-        public async Task<ActionResult<Threads>> Post(int topicId, Threads createThread)
+        public async Task<ActionResult<ThreadDto>> Post(int topicId, Threads createThread)
         {
             Topics topic = await _topicsRepository.GetAsync(topicId);
-            createThread.Topic = topic;
-            createThread.CreationDateTime = DateTime.Now;
-            createThread.UserId = User.FindFirstValue(JwtRegisteredClaimNames.Sub);
+            var thread = new Threads
+            {
+                Title = createThread.Title,
+                Description = createThread.Description,
+                CreationDateTime = DateTime.Now,
+                UserId = User.FindFirstValue(JwtRegisteredClaimNames.Sub),
+                TopicId = topicId
+            };
             await _threadsRepository.InsertAsync(createThread);
-            createThread.Topic = null;
-            return Created("", createThread);
+            return Created("", new ThreadDto(thread.Id,thread.Title,thread.Description,thread.CreationDateTime));
 
         }
 
         // PUT api/v1/topics/{topicId}/threads/{id}
         [HttpPut("{id}")]
         [Authorize(Roles = ForumRoles.AuthForumUser)]
-        public async Task<ActionResult<Threads>> Put(int topicId,int id, Threads updateThread)
+        public async Task<ActionResult<ThreadDto>> Put(int topicId,int id, UpdateThreadDto updateThread)
         {
             var thread = await _threadsRepository.GetAsync(topicId, id);
 
@@ -92,13 +97,13 @@ namespace ForumAPI.Controllers
             thread.Description = updateThread.Description;
             await _threadsRepository.UpdateAsync(thread);
 
-            return Ok(thread);
+            return Ok(new ThreadDto(thread.Id, thread.Title, thread.Description, thread.CreationDateTime));
         }
 
         // DELETE api/v1/topics/{topicId}/threads/{id}
         [HttpDelete("{id}")]
         [Authorize(Roles = ForumRoles.AuthForumUser)]
-        public async Task<ActionResult<Threads>> Delete(int topicId,int id)
+        public async Task<ActionResult<ThreadDto>> Delete(int topicId,int id)
         {
             var thread = await _threadsRepository.GetAsync(topicId, id);
 
