@@ -1,10 +1,12 @@
 ﻿
+using ForumAPI.Auth.Model;
 using ForumAPI.Data.Entities;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace ForumAPI.Data
 {
-    public class ForumDBContext : DbContext
+    public class ForumDBContext : IdentityDbContext<ForumRestUser>
     {
         public ForumDBContext(DbContextOptions<ForumDBContext> options)
         : base(options)

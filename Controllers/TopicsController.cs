@@ -1,7 +1,8 @@
 ﻿using ForumAPI.Data.Repositories;
 using ForumAPI.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
-
+using Microsoft.AspNetCore.Authorization;
+using ForumAPI.Auth.Model;
 
 namespace ForumAPI.Controllers
 {
@@ -10,9 +11,11 @@ namespace ForumAPI.Controllers
     public class TopicsController : ControllerBase
     {
         private readonly ITopicsRepository _topicsRepository;
-        public TopicsController(ITopicsRepository TopicsRepository)
+        private readonly IAuthorizationService _authorizationService;
+        public TopicsController(ITopicsRepository TopicsRepository, IAuthorizationService AuthorizationService)
         {
             _topicsRepository = TopicsRepository;
+            _authorizationService = AuthorizationService;
         }
 
 
@@ -28,6 +31,7 @@ namespace ForumAPI.Controllers
 
         // GET: api/v1/topics/
         [HttpGet]
+        [Authorize(Roles = ForumRoles.AnonGuest)]
         public async Task<IEnumerable<Topics>> Get()
         {
             var threads = await _topicsRepository.GetMultipleAsync();
@@ -36,6 +40,8 @@ namespace ForumAPI.Controllers
 
         // GET api/v1/topics/{id}
         [HttpGet("{id}")]
+        [Authorize(Roles = ForumRoles.AnonGuest)]
+
         public async Task<ActionResult<Threads>> Get( int id)
         {
             var topic = await _topicsRepository.GetAsync(id);
@@ -50,6 +56,7 @@ namespace ForumAPI.Controllers
 
         // POST api/v1/topics
         [HttpPost]
+        [Authorize(Roles = ForumRoles.Admin)]
         public async Task<ActionResult<Topics>> Post( Topics createTopic)
         {
             createTopic.CreationDateTime = DateTime.Now;
@@ -60,6 +67,7 @@ namespace ForumAPI.Controllers
 
         // PUT api/v1/topics/{id}
         [HttpPut("{id}")]
+        [Authorize(Roles = ForumRoles.Admin)]
         public async Task<ActionResult<Topics>> Put(int id, Topics updateTopic)
         {
             var topic = await _topicsRepository.GetAsync(id);
@@ -67,7 +75,7 @@ namespace ForumAPI.Controllers
             // 404
             if (topic == null)
                 return NotFound();
-
+            
             topic.Description = updateTopic.Description;
             await _topicsRepository.UpdateAsync(topic);
 
@@ -76,6 +84,7 @@ namespace ForumAPI.Controllers
 
         // DELETE api/v1/topics/{id}
         [HttpDelete("{id}")]
+        [Authorize(Roles = ForumRoles.Admin)]
         public async Task<ActionResult<Topics>> Delete( int id)
         {
             var topic = await _topicsRepository.GetAsync( id);
@@ -87,8 +96,8 @@ namespace ForumAPI.Controllers
             await _topicsRepository.DeleteAsync(topic);
 
 
-            // 200
-            return Ok();
+            // 204
+            return NoContent();
         }
 
     }
