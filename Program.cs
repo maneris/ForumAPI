@@ -35,7 +35,7 @@ builder.Services.AddAuthentication(options =>
     });
 
 builder.Services.AddDbContext<ForumDBContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseSqlServer(builder.Configuration.GetConnectionString("AzureConnection")));
 
 builder.Services.AddTransient<IPostsRepository, PostsRepository>();
 builder.Services.AddTransient<IThreadsRepository,ThreadsRepository>();
