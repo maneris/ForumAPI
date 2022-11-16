@@ -11,27 +11,25 @@
 	egzistuojančius „Post“, „Thread“ ir „Topic“.
 	1.2. Funkciniai reikalavimai
 		Neregistruotas sistemos naudotojas galės:
-		1.	Peržiūrėti egzistuojančius „Post“;
-		2.	Užsiregistruoti prie internetinės aplikacijos.
+			1.	Peržiūrėti egzistuojančius „Post“;
+			2.	Užsiregistruoti prie internetinės aplikacijos.
 
 		Registruotas sistemos naudotojas
-		1.	Atsijungti nuo internetinės aplikacijos;
-		2.	Prisijungti prie internetinės aplikacijos;
-		3.	Sukurti nauja „Thread“:
-		3.1.	Priskisti titulini pavadinimą;
-		3.2.	Sukurti aprašymą;
-		4.	Sukurti nauja „Post“:
-		4.1.	Pridėti nauja tekstą;
-		4.2.	Pasirinkti senesnį postą kaip atsakymui, jei norima;
-		5.	Reitinguoti kitų vartotojų „Thread“.
+			1.	Atsijungti nuo internetinės aplikacijos;
+			2.	Prisijungti prie internetinės aplikacijos;
+			3.	Sukurti nauja „Thread“:
+				3.1.	Priskisti titulini pavadinimą;
+				3.2.	Sukurti aprašymą;
+			4.	Sukurti nauja „Post“:
+				4.1.	Pridėti nauja tekstą;
+				4.2.	Pasirinkti senesnį postą kaip atsakymui, jei norima;
 
 		Administratorius galės:
-		1.	Šalinti registruotus naudotojus;
-		2.	Trinti „Post“ ir „Thread“;
-		3.	Perkelti „Thread“ į kitą „Topic“;
-		4.	Sukurti naują „Topic“:
-		4.1.	Pridėti titulą;
-		4.2.	Pridėti aprašymą.
+			1.	Trinti „Post“ ir „Thread“;
+			2.	Perkelti „Thread“ į kitą „Topic“;
+			3.	Sukurti naują „Topic“:
+				3.1.	Pridėti titulą;
+				3.2.	Pridėti aprašymą.
 
 2. SISTEMOS ARCHITEKTŪRA
 	Sistemos sudedamosios dalys: 
@@ -50,6 +48,6 @@
 	• Norint pasiekti Posts API reikia pridėti posts arba posts/{id} prie threads API URL'o.
 	
 	Reikalingi parametrai Post ir Put metodams:
-	1. Topic atvėju reikia paduoti Title ir Description abu turi buti string tipo.
-	2. Thread atvėju reikia paduoti Title ir Description abu turi buti string tipo.
-	3. Post atvėju reikia paduoti Description, kuris turi buti string tipo.
+		1. Topic atvėju reikia paduoti Title ir Description abu turi buti string tipo.
+		2. Thread atvėju reikia paduoti Title ir Description abu turi buti string tipo.
+		3. Post atvėju reikia paduoti Description, kuris turi buti string tipo.
