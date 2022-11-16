@@ -51,3 +51,6 @@
 		1. Topic atvėju reikia paduoti Title ir Description abu turi buti string tipo.
 		2. Thread atvėju reikia paduoti Title ir Description abu turi buti string tipo.
 		3. Post atvėju reikia paduoti Description, kuris turi buti string tipo.
+
+4. Authorizacija
+	api naudoja JWT tokenus vartotojų authentifikacijai ir authorizacijai. Sistemoje yra 3 roles (AnonGuest, RegisteredUser, Admin), AnonGuest vartotojai gauna tokenus 30 min, o RegisteredUser ir admin 1h.
