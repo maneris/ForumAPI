@@ -1,30 +1,41 @@
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
 import React, {useState} from 'react';
-import { Modal } from 'bootstrap';
+import '../functionalComponents/CustomStyles.css';
+import Register from './Register';
+import {useNavigate} from 'react-router-dom'
 
 export default function Login(){
-    const [token, setToken] = useState(null);
-    const [postResult, setPostResult] = useState(null);
+    const navigate = useNavigate()
     const handleSubmit = (event) => {
-        // const form = event.currentTarget;
-        // fetch(process.env.REACT_APP_API+'login')
-        // .then((response) => {
-        //     if (!response.ok) {
-        //       Modal()
-        //     }
-        //     return response.json();
-        //   })
-        // .then(data=>{
-        //     setToken({accessToken: data.accessToken});
-        // });
+        const form = event.currentTarget;
+        fetch(process.env.REACT_APP_API+'login'+{
+            method:'post',
+            mode: 'cors',
+            headers:{
+                'Accept':'application/json',
+                'Content-Type':'application/json'
+            },
+            body:JSON.stringify({
+                UserName:form.username.value,
+                Password:form.password.value
+            })
+        })
+        .then((response) => {
+            if (!response.ok) {
+
+                alert("Error:"+response.status)
+            }
+            return response.json();
+          })
+        .then(data=>{
+            sessionStorage.setItem("token", data.accesstoken);
+            console.log(data);
+            navigate('/topics');
+        });
     };
     async function handleAnonBrowse(){
-        console.log("K1");
         await fetch(process.env.REACT_APP_API+'AnonBrowse',{
                 method: "post",
                 mode: 'cors',
-                
                 })
             .then((response) => {
                 if (!response.ok) {
@@ -33,30 +44,42 @@ export default function Login(){
                 return response.json();
             })
             .then((actualData) => {
-            setToken({
-                accesstoken: actualData.accesstoken
-            })
-            console.log(actualData);
-        });
+                console.log(actualData);
+                sessionStorage.setItem("token", actualData.accessToken);
+                navigate('/topics');
+            });
             
     };
+    function registerClick(){
+        navigate('/register');
+    }
 
     return (
-        <>
-        <Form >
-            <Form.Group className="mb-3" controlId="formUsername">
-                <Form.Label>Username</Form.Label>
-                <Form.Control type="text" placeholder="Enter username" />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="formPassword">
-                <Form.Label>Password</Form.Label>
-                <Form.Control type="password" placeholder="Enter password" />
-            </Form.Group>
-            <Button variant="primary" type="submit" >
-                Login
-            </Button>
-        </Form>
-        <Button variant="secondary" onClick={handleAnonBrowse}>Anonymous </Button>
-        </>
+        <div className="container ">
+            <div className="row">
+                <div className="col-md-4 offset-md-4 bg-light mt-4 p-4">  {/* vienoje vietoje persikelia i kita vieta  */}
+                    <div className="login-form ">
+                        <form className="row g-3" onSubmit={handleSubmit}>
+                            <h4>Prisijungti</h4>
+                            <div className="col-12">
+                                <label>Username</label>
+                                <input type="text" name="username" className="form-control" placeholder="Username" />
+                            </div>
+                            <div className="col-12">
+                                <label>Password</label>
+                                <input type="password" name="password" className="form-control" placeholder="Password"/>
+                            </div>
+                            <div className="col-sm-12">
+                                <button type="submit" className="btn btn-primary col-sm-4">Login</button>
+                                <button type="button" className="btn btn-info col-sm-7 offset-sm-1 "onClick={registerClick}>Register</button>
+                            </div>
+                        </form>
+                        <div className="col-md-12 mt-2">
+                            <button onClick={handleAnonBrowse} className="btn btn-secondary float-left">Continue as Anon</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>     
     )
   }

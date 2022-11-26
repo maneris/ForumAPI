@@ -1,0 +1,21 @@
+.Login{
+    background: rgb(47, 22, 138);
+}
+
+.title{
+    font-size: 36px;
+    font-family:'sans-serif', 'Open Sans';
+    font-weight: 700;
+}
+
+.description{
+    font-size: 16px;
+    font-family:'sans-serif', 'Open Sans';
+    font-weight: 400;
+}
+
+.formlabel{
+    font-size: 20px;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-weight: 300;
+}
