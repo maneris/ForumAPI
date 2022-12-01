@@ -14,19 +14,15 @@ function App() {
   return (
     <main >
       <Routes>
-          <Route path='/topics' element={<TopicsList/>} >
-            <Route path=':topicsId' element={<Topics/>} >
-              <Route path='threads' element={<ThreadsList/>} >
-                <Route path=':threadsId' element={<Threads/>} >
-                  <Route path='posts' element={<PostsList/>}>
-                    <Route path=':postsId' element={<Posts/>}/>
-                  </Route>
-                </Route>
-              </Route>
-            </Route>
-          </Route>
-          <Route path='/login' element={<Login/>} />
-          <Route path='/register' element={<Register/>} />
+        <Route path='/topics' element={<TopicsList/>} />
+        <Route path='/topics/:topicsId' element={<Topics/>} />
+        <Route path='/topics/:topicsId/threads' element={<ThreadsList/>} />
+        <Route path='/topics/:topicsId/threads/:threadsId' element={<Threads/>} />
+        <Route path='/topics/:topicsId/threads/:threadsId/posts' element={<PostsList/>}/>
+        <Route path='/topics/:topicsId/threads/:threadsId/posts/:postsId' element={<Posts/>}/>
+        <Route path='/login' element={<Login/>} />
+        <Route path='/register' element={<Register/>} />
+        <Route path='*' element={<Login/> }/>
       </Routes>
     </main>
   );

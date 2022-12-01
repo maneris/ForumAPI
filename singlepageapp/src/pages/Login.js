@@ -1,13 +1,14 @@
 import React, {useState} from 'react';
 import '../functionalComponents/CustomStyles.css';
 import Register from './Register';
-import {useNavigate} from 'react-router-dom'
+import {useNavigate} from 'react-router-dom';
 
 export default function Login(){
     const navigate = useNavigate()
     const handleSubmit = (event) => {
+        event.preventDefault()
         const form = event.currentTarget;
-        fetch(process.env.REACT_APP_API+'login'+{
+        fetch(process.env.REACT_APP_API+'login',{
             method:'post',
             mode: 'cors',
             headers:{
@@ -22,12 +23,12 @@ export default function Login(){
         .then((response) => {
             if (!response.ok) {
 
-                alert("Error:"+response.status)
+                alert("Error:"+response.status+"\nMessage:"+response.statusText)
             }
-            return response.json();
+                return response.json();           
           })
         .then(data=>{
-            sessionStorage.setItem("token", data.accesstoken);
+            sessionStorage.setItem("token", data.accessToken);
             console.log(data);
             navigate('/topics');
         });
