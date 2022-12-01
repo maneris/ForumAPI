@@ -2,6 +2,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import '../functionalComponents/CustomStyles.css';
 import React, {useState, useEffect} from 'react';
 import {useNavigate,useParams} from 'react-router-dom';
+import Thread from "./Threads";
 
 function PostsList(){
     const [postsList,setPostsList] = useState(null);
@@ -39,10 +40,14 @@ function PostsList(){
     }
 
     return(
+        
         <div className="container" >
             {loading ? (
                 <div>A moment please...</div>
             ) : (
+            <div>
+            <Thread/>
+         
             <ListGroup>
                 {postsList.map((element) => 
                     <ListGroup.Item className="d-flex justify-content-between align-items-start" action href={"posts/"+element.id} key={element.id} >
@@ -52,6 +57,7 @@ function PostsList(){
                     </ListGroup.Item>
                 )}
             </ListGroup>
+            </div>
             )}
         </div>
     )

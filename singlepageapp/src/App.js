@@ -3,10 +3,10 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Topics from "./pages/Topics";
 import Threads from "./pages/Threads";
-import Posts from "./pages/Threads";
+import Posts from "./pages/Posts";
 import TopicsList from "./pages/TopicsList";
 import ThreadsList from "./pages/ThreadsList";
-import PostsList from "./pages/ThreadsList";
+import PostsList from "./pages/PostsList";
 import { Routes, Route  } from 'react-router-dom';
 
 
@@ -28,3 +28,4 @@ function App() {
   );
 }
 export default App;
+
