@@ -2,6 +2,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import '../functionalComponents/CustomStyles.css';
 import React, {useState, useEffect} from 'react';
 import {useNavigate,useParams} from 'react-router-dom';
+import Topic from "./Topics";
 
 function ThreadsList(){
     const [threadsList,setThreadsList] = useState(null);
@@ -22,6 +23,9 @@ function ThreadsList(){
                     sessionStorage.clear();
                     alert("Session expired please relogin.")
                     navigate('/login');
+                }else if(response.status==404){
+                    alert("Requested topic does not exist.")
+                    navigate('/topics/'+params.topicsId+"/threads");
                 }else{
                     alert("Error:"+response.status+"\nMessage:"+response.statusText)
                 }
@@ -39,13 +43,15 @@ function ThreadsList(){
     }
 
     return(
-        <div className="container" >
+        <div className="container mt-5" >
             {loading ? (
                 <div>A moment please...</div>
             ) : (
-            <ListGroup>
+            <div>
+            <Topic/>
+            <ListGroup className=' col-md-10 offset-md-1 '>
                 {threadsList.map((element) => 
-                    <ListGroup.Item className="d-flex justify-content-between align-items-start" action href={"threads/"+element.id} key={element.id} >
+                    <ListGroup.Item className="d-flex justify-content-between align-items-start" action href={"threads/"+element.id+"/posts"} key={element.id} >
                         <div className="ms-2 me-auto description" >
                             <div className="title">{element.title}</div>
                             {element.description}
@@ -53,6 +59,7 @@ function ThreadsList(){
                     </ListGroup.Item>
                 )}
             </ListGroup>
+            </div>
             )}
         </div>
     )

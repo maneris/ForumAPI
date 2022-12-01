@@ -23,6 +23,9 @@ function PostsList(){
                     sessionStorage.clear();
                     alert("Session expired please relogin.")
                     navigate('/login');
+                }else if(response.status==404){
+                    alert("Requested thread does not exist.")
+                    navigate('/topics/'+params.topicsId+"/threads");
                 }else{
                     alert("Error:"+response.status+"\nMessage:"+response.statusText)
                 }
@@ -41,16 +44,16 @@ function PostsList(){
 
     return(
         
-        <div className="container" >
+        <div className="container mt-5" >
             {loading ? (
                 <div>A moment please...</div>
             ) : (
             <div>
             <Thread/>
          
-            <ListGroup>
+            <ListGroup className='col-md-10 offset-md-1'>
                 {postsList.map((element) => 
-                    <ListGroup.Item className="d-flex justify-content-between align-items-start" action href={"posts/"+element.id} key={element.id} >
+                    <ListGroup.Item className="d-flex justify-content-between align-items-start p-3" action href={"posts/"+element.id} key={element.id} >
                         <div className="description" >
                             {element.description}
                         </div>

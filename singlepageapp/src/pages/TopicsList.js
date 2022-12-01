@@ -39,13 +39,13 @@ function TopicsList(){
     }
 
     return(
-        <div className="container" >
+        <div className="container col-md-10 offset-md-1 mt-5" >
             {loading ? (
                 <div>A moment please...</div>
             ) : (
-            <ListGroup>
+            <ListGroup className=' col-md-10 offset-md-1'>
                 {topicsList.map((element) => 
-                    <ListGroup.Item className="d-flex justify-content-between align-items-start" action href={"topics/"+element.id} key={element.id} >
+                    <ListGroup.Item className="d-flex justify-content-between align-items-start" action href={"topics/"+element.id+"/threads"} key={element.id} >
                         <div className="ms-2 me-auto description" >
                             <div className="title">{element.title}</div>
                             {element.description}
