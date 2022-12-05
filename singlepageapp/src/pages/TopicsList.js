@@ -2,7 +2,7 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import '../functionalComponents/CustomStyles.css';
 import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
-
+import Spinner from 'react-bootstrap/Spinner';
 
 function TopicsList(){
     const [topicsList,setTopicsList] = useState(null);
@@ -41,7 +41,11 @@ function TopicsList(){
     return(
         <div className="container col-md-10 offset-md-1 mt-5" >
             {loading ? (
-                <div>A moment please...</div>
+                <div>
+                <Spinner animation="border" role="status">
+                    <span className="visually-hidden">Loading...</span></Spinner>
+                A moment please... 
+                </div>
             ) : (
             <ListGroup className=' col-md-10 offset-md-1'>
                 {topicsList.map((element) => 

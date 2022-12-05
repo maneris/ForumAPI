@@ -3,7 +3,7 @@ import '../functionalComponents/CustomStyles.css';
 import React, {useState, useEffect} from 'react';
 import {useNavigate,useParams} from 'react-router-dom';
 import Thread from "./Threads";
-
+import Spinner from 'react-bootstrap/Spinner';
 function PostsList(){
     const [postsList,setPostsList] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -46,7 +46,11 @@ function PostsList(){
         
         <div className="container mt-5" >
             {loading ? (
-                <div>A moment please...</div>
+            <div>
+            <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span></Spinner>
+            A moment please... 
+            </div>            
             ) : (
             <div>
             <Thread/>

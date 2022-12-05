@@ -2,6 +2,7 @@ import '../functionalComponents/CustomStyles.css';
 import React, {useState, useEffect} from 'react';
 import {useNavigate,useParams} from 'react-router-dom';
 import EditModal from './Modals/PostEdit';
+import Spinner from 'react-bootstrap/Spinner';
 function Posts () {
     const [post,setPost] = useState(null);
     const [showEditModal,setShowEditModal] = useState(false);
@@ -66,7 +67,11 @@ function Posts () {
     return(
         <div className='container col-md-10 offset-md-1 mt-5 mb-5 p-3 border'>
         {loading ? (
-            <div>A moment please...</div>
+            <div>
+            <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span></Spinner>
+            A moment please... 
+            </div>
         ) : (
             <div >
 

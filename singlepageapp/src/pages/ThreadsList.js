@@ -3,7 +3,7 @@ import '../functionalComponents/CustomStyles.css';
 import React, {useState, useEffect} from 'react';
 import {useNavigate,useParams} from 'react-router-dom';
 import Topic from "./Topics";
-
+import Spinner from 'react-bootstrap/Spinner';
 function ThreadsList(){
     const [threadsList,setThreadsList] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -45,7 +45,11 @@ function ThreadsList(){
     return(
         <div className="container mt-5" >
             {loading ? (
-                <div>A moment please...</div>
+            <div>
+            <Spinner animation="border" role="status">
+                <span className="visually-hidden">Loading...</span></Spinner>
+            A moment please... 
+            </div>
             ) : (
             <div>
             <Topic/>

@@ -10,17 +10,25 @@ import { Routes, Route  } from 'react-router-dom';
 
 function App() {
   return (
-    <main >
-      <Routes>
-        <Route path='/topics' element={<TopicsList/>} />
-        <Route path='/topics/:topicsId/threads' element={<ThreadsList/>} />
-        <Route path='/topics/:topicsId/threads/:threadsId/posts' element={<PostsList/>}/>
-        <Route path='/topics/:topicsId/threads/:threadsId/posts/:postsId' element={<Posts/>}/>
-        <Route path='/login' element={<Login/>} />
-        <Route path='/register' element={<Register/>} />
-        <Route path='*' element={<Login/> }/>
-      </Routes>
-    </main>
+    <body>
+      <header className='App-header'>
+        We like CSS
+      </header>
+      <main >
+        <Routes>
+          <Route path='/topics' element={<TopicsList/>} />
+          <Route path='/topics/:topicsId/threads' element={<ThreadsList/>} />
+          <Route path='/topics/:topicsId/threads/:threadsId/posts' element={<PostsList/>}/>
+          <Route path='/topics/:topicsId/threads/:threadsId/posts/:postsId' element={<Posts/>}/>
+          <Route path='/login' element={<Login/>} />
+          <Route path='/register' element={<Register/>} />
+          <Route path='*' element={<Login/> }/>
+        </Routes>
+      </main>
+      <footer className='App-Footer'>
+        We Dislike CSS
+      </footer>
+    </body>
   );
 }
 export default App;
