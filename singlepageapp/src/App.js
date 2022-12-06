@@ -6,15 +6,17 @@ import TopicsList from "./pages/TopicsList";
 import ThreadsList from "./pages/ThreadsList";
 import PostsList from "./pages/PostsList";
 import { Routes, Route  } from 'react-router-dom';
+import DynNavBar from './functionalComponents/NavBar';
+import FooterContent from './functionalComponents/FooterContent'
 
 
 function App() {
   return (
-    <body>
+    <>
       <header className='App-header'>
-        We like CSS
+        <DynNavBar/>
       </header>
-      <main >
+      <main className='App-Main'>
         <Routes>
           <Route path='/topics' element={<TopicsList/>} />
           <Route path='/topics/:topicsId/threads' element={<ThreadsList/>} />
@@ -26,9 +28,9 @@ function App() {
         </Routes>
       </main>
       <footer className='App-Footer'>
-        We Dislike CSS
+        <FooterContent/>
       </footer>
-    </body>
+    </>
   );
 }
 export default App;

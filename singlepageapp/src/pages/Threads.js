@@ -4,6 +4,8 @@ import {useNavigate,useParams} from 'react-router-dom';
 import PostCreate from './Modals/PostCreate';
 import ThreadEdit from './Modals/ThreadEdit';
 import Spinner from 'react-bootstrap/Spinner';
+import LogoImage from '../functionalComponents/ContentImg2.jpg'
+
 function Threads () {
     const [thread,setThread] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -67,7 +69,7 @@ function Threads () {
 
 
     return(
-        <div className='container col-md-10 offset-md-1 mt-5 mb-5 p-3 border'>
+        <div className='container col-md-10 offset-md-1 mt-5 mb-5 p-3' style={{ backgroundImage: `url(${LogoImage})`, backgroundSize:`cover`, backgroundRepeat:'no-repeat', backgroundPosition:'center', height:'100%' }}>
         {loading ? (
             <div>
             <Spinner animation="border" role="status">

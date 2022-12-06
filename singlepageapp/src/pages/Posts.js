@@ -3,6 +3,8 @@ import React, {useState, useEffect} from 'react';
 import {useNavigate,useParams} from 'react-router-dom';
 import EditModal from './Modals/PostEdit';
 import Spinner from 'react-bootstrap/Spinner';
+import LogoImage from '../functionalComponents/ContentImg2.jpg'
+
 function Posts () {
     const [post,setPost] = useState(null);
     const [showEditModal,setShowEditModal] = useState(false);
@@ -65,7 +67,7 @@ function Posts () {
     }
 
     return(
-        <div className='container col-md-10 offset-md-1 mt-5 mb-5 p-3 border'>
+        <div className='container col-md-10 offset-md-1 mt-5 mb-5 p-3 ' style={{ backgroundImage: `url(${LogoImage})`, backgroundSize:`cover`, backgroundRepeat:'no-repeat', backgroundPosition:'center', height:'100%' }}>
         {loading ? (
             <div>
             <Spinner animation="border" role="status">

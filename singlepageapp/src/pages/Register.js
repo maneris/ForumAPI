@@ -22,13 +22,15 @@ function Register() {
             })
         })
         .then((response) => {
-            if (!response.ok) {
-                console.log(response);
-                alert("Error:"+response.status+"\n"+response.statusText)
-            }
-            else{
+            if (response.ok) {
                 alert("successfuly registered");
                 navigate('/login');
+            }else if(response.status==400){
+                alert("Incorrect data passwords must contain:\n\tUpercase letter, lowercase letter, digit and a symbol.\n Or there is such a account")
+            }
+            else{
+                console.log(response);
+                alert("Error:"+response.status+"\n"+response.statusText)
             }
             
         });

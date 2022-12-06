@@ -3,6 +3,7 @@ import '../functionalComponents/CustomStyles.css';
 import React, {useState, useEffect} from 'react';
 import {useNavigate} from 'react-router-dom';
 import Spinner from 'react-bootstrap/Spinner';
+import TopicCreate from './Modals/TopicCreate';
 
 function TopicsList(){
     const [topicsList,setTopicsList] = useState(null);
@@ -40,6 +41,7 @@ function TopicsList(){
 
     return(
         <div className="container col-md-10 offset-md-1 mt-5" >
+            <div className='offset-md-5'><TopicCreate /></div>
             {loading ? (
                 <div>
                 <Spinner animation="border" role="status">
@@ -47,9 +49,9 @@ function TopicsList(){
                 A moment please... 
                 </div>
             ) : (
-            <ListGroup className=' col-md-10 offset-md-1'>
+            <ListGroup className=' col-md-10 offset-md-1' >
                 {topicsList.map((element) => 
-                    <ListGroup.Item className="d-flex justify-content-between align-items-start" action href={"topics/"+element.id+"/threads"} key={element.id} >
+                    <ListGroup.Item className="d-flex justify-content-between align-items-start" action href={"topics/"+element.id+"/threads"} key={element.id} style={{backgroundColor:'rgb(76, 53, 117)'}}>
                         <div className="ms-2 me-auto description" >
                             <div className="title">{element.title}</div>
                             {element.description}

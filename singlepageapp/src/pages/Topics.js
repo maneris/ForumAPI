@@ -4,6 +4,7 @@ import {useNavigate,useParams} from 'react-router-dom';
 import TopicEdit from './Modals/TopicEdit';
 import ThreadCreate from './Modals/ThreadCreate';
 import Spinner from 'react-bootstrap/Spinner';
+import LogoImage from '../functionalComponents/ContentImg2.jpg'
 function Topics () {
     const [topic,setTopic] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -37,7 +38,7 @@ function Topics () {
     }, [])
 
     return(
-        <div className='container col-md-10 offset-md-1 mt-5 mb-5 p-3 border'>
+        <div className='container col-md-10 offset-md-1 mt-5 mb-5 p-3 ' style={{ backgroundImage: `url(${LogoImage})`, backgroundSize:`cover`, backgroundRepeat:'no-repeat', backgroundPosition:'center', height:'100%'}}>
             {loading ? (
                 <div>
                 <Spinner animation="border" role="status">

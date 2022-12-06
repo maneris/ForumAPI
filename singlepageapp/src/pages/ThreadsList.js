@@ -55,7 +55,7 @@ function ThreadsList(){
             <Topic/>
             <ListGroup className=' col-md-10 offset-md-1 '>
                 {threadsList.map((element) => 
-                    <ListGroup.Item className="d-flex justify-content-between align-items-start" action href={"threads/"+element.id+"/posts"} key={element.id} >
+                    <ListGroup.Item className="d-flex justify-content-between align-items-start" action href={"threads/"+element.id+"/posts"} key={element.id} style={{backgroundColor:'rgb(76, 53, 117)'}}>
                         <div className="ms-2 me-auto description" >
                             <div className="title">{element.title}</div>
                             {element.description}

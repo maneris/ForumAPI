@@ -7,12 +7,14 @@
     font-family:'sans-serif', 'Open Sans';
     font-weight: 700;
     justify-content: center;
+    color:rgb(255, 255, 255);
 }
 
 .description{
     font-size: 18px;
     font-family:'sans-serif', 'Open Sans';
     font-weight: 400;
+    color:rgb(255, 255, 255);
 }
 
 .formlabel{
@@ -20,3 +22,4 @@
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     font-weight: 300;
 }
+

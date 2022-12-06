@@ -57,7 +57,7 @@ function PostsList(){
          
             <ListGroup className='col-md-10 offset-md-1'>
                 {postsList.map((element) => 
-                    <ListGroup.Item className="d-flex justify-content-between align-items-start p-3" action href={"posts/"+element.id} key={element.id} >
+                    <ListGroup.Item className="d-flex justify-content-between align-items-start p-3" action href={"posts/"+element.id} key={element.id} style={{backgroundColor:'rgb(76, 53, 117)'}}>
                         <div className="description" >
                             {element.description}
                         </div>

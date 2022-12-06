@@ -22,10 +22,9 @@ export default function Login(){
         })
         .then((response) => {
             if (!response.ok) {
-
                 alert("Error:"+response.status+"\nMessage:"+response.statusText)
-            }
-                return response.json();           
+            }else{return response.json();}
+                           
           })
         .then(data=>{
             sessionStorage.setItem("token", data.accessToken);
