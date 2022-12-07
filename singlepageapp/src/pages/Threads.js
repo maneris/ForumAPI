@@ -41,8 +41,8 @@ function Threads () {
             console.log(data);
         });
     }, [])
-    const threadDelete=()=>{
-        fetch(process.env.REACT_APP_API+'topics/'+params.topicsId+"/threads/"+params.threadsId,{
+    async function Delete(){
+        await fetch(process.env.REACT_APP_API+'topics/'+params.topicsId+"/threads/"+params.threadsId,{
             method:'delete',
             mode: 'cors',
             headers:{
@@ -55,23 +55,23 @@ function Threads () {
                     sessionStorage.clear();
                     alert("Session expired please relogin.")
                     navigate('/login');
-                }else if(response.status==404){
-                    alert("Requested thread does not exist.")
-                    navigate('/topics/'+params.topicsId+"/threads");
+                }else if(response.status==403){
+                    alert("Insufficient privilages.")
                 }
                 else{
                     alert("Error:"+response.status+"\nMessage:"+response.statusText)
                 }
-            }
+            }else{
+                navigate('/topics/'+params.topicsId+"/threads");
+            }          
         })
-
     }
 
 
     return(
         <div className='container col-md-10 offset-md-1 mt-5 mb-5 p-3' style={{ backgroundImage: `url(${LogoImage})`, backgroundSize:`cover`, backgroundRepeat:'no-repeat', backgroundPosition:'center', height:'100%' }}>
         {loading ? (
-            <div>
+            <div style={{color:'rgb(255,255,255)'}}>
             <Spinner animation="border" role="status">
                 <span className="visually-hidden">Loading...</span></Spinner>
             A moment please... 
@@ -83,7 +83,7 @@ function Threads () {
                 <div className='container-fluid d-flex justify-content-end'>
                     <div className='btn-group' >
                         <ThreadEdit Title={thread.title} Description={thread.description}/>
-                        <button type="button" className='btn btn-secondary' onClick={()=>console.log("hi")} >Delete</button>
+                        <button type="button" className='btn btn-secondary' onClick={()=>Delete()} >Delete</button>
                         <PostCreate />
                     </div>
                 </div>  

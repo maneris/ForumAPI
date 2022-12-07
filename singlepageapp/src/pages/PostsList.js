@@ -46,7 +46,7 @@ function PostsList(){
         
         <div className="container mt-5" >
             {loading ? (
-            <div>
+            <div style={{color:'rgb(255,255,255)'}}>
             <Spinner animation="border" role="status">
                 <span className="visually-hidden">Loading...</span></Spinner>
             A moment please... 

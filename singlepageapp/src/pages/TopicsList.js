@@ -43,7 +43,7 @@ function TopicsList(){
         <div className="container col-md-10 offset-md-1 mt-5" >
             <div className='offset-md-5'><TopicCreate /></div>
             {loading ? (
-                <div>
+                <div style={{color:'rgb(255,255,255)'}}>
                 <Spinner animation="border" role="status">
                     <span className="visually-hidden">Loading...</span></Spinner>
                 A moment please... 

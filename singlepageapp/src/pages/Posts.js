@@ -56,12 +56,14 @@ function Posts () {
                     sessionStorage.clear();
                     alert("Session expired please relogin.")
                     navigate('/login');
+                }else if(response.status==403){
+                    alert("Insufficient privilages.")
                 }
                 else{
                     alert("Error:"+response.status+"\nMessage:"+response.statusText)
                 }
             }else{
-                navigate('/topics/'+params.topicsId+"/threads");
+                navigate('/topics/'+params.topicsId+"/threads"+params.threadsId+"/posts");
             }          
         })
     }
@@ -69,7 +71,7 @@ function Posts () {
     return(
         <div className='container col-md-10 offset-md-1 mt-5 mb-5 p-3 ' style={{ backgroundImage: `url(${LogoImage})`, backgroundSize:`cover`, backgroundRepeat:'no-repeat', backgroundPosition:'center', height:'100%' }}>
         {loading ? (
-            <div>
+            <div style={{color:'rgb(255,255,255)'}}>
             <Spinner animation="border" role="status">
                 <span className="visually-hidden">Loading...</span></Spinner>
             A moment please... 
