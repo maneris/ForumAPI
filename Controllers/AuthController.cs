@@ -37,7 +37,7 @@ namespace ForumAPI.Controllers
             if (!createUserResult.Succeeded)
                 return BadRequest("Could not create a user.");
 
-            await _userManager.AddToRoleAsync(newUser, ForumRoles.AuthForumUser);
+            await _userManager.AddToRolesAsync(newUser, ForumRoles.RegisteredUsers);
 
             return CreatedAtAction(nameof(Register), new UserDto(newUser.Id, newUser.UserName, newUser.Email));
         }
