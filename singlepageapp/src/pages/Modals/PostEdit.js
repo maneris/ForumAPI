@@ -19,7 +19,7 @@ function PostEdit(props){
                 'Authorization':"Bearer " + sessionStorage.getItem("token")
             },
             body:JSON.stringify({
-                description:form.Description.value,
+                Description:form.Description.value,
             })
         })
         .then((response) => {
@@ -33,8 +33,9 @@ function PostEdit(props){
                     alert("Error:"+response.status+"\nMessage:"+response.statusText)
                 }
             }else{
-                navigate('/topics/'+params.topicsId+"/threads");
-            }          
+                handleClose();
+                props.reload();
+            }        
         })
 
     }

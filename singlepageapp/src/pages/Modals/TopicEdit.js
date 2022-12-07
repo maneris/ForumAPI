@@ -19,8 +19,8 @@ function TopicEdit(props){
                 'Authorization':"Bearer " + sessionStorage.getItem("token")
             },
             body:JSON.stringify({
-                title:props.Title,
-                description:form.Description.value,
+                Title:props.Title,
+                Description:form.Description.value,
             })
         })
         .then((response) => {
@@ -33,11 +33,14 @@ function TopicEdit(props){
                 else{
                     alert("Error:"+response.status+"\nMessage:"+response.statusText)
                 }
-            }
+            }else{
+                handleClose();
+                props.reload();
+            }  
         })
-
-
     }
+
+    
     return(
         <>
             <button type="button" className='btn btn-secondary' onClick={handleShow} >Edit</button>

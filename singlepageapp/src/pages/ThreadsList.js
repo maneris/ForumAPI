@@ -38,9 +38,6 @@ function ThreadsList(){
             console.log(data);
         });
     }, [])
-    function NavigateToPage(int){
-        navigate(''+int);
-    }
 
     return(
         <div className="container mt-5" >

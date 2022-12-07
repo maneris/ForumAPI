@@ -38,9 +38,7 @@ function PostsList(){
             console.log(data);
         });
     }, [])
-    function NavigateToPage(int){
-        navigate(''+int);
-    }
+
 
     return(
         

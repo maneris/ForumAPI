@@ -33,8 +33,10 @@ function PostCreate(){
                     alert("Error:"+response.status+"\nMessage:"+response.statusText)
                 }
             }else{
-                navigate('/topics/'+params.topicsId+"/threads");
-            }          
+                return response.json()
+            }       
+        }).then((data)=>{
+            navigate('/topics/'+params.topicsId+"/threads/"+params.threadsId+"/posts/"+data.id)
         })
 
     }

@@ -19,8 +19,8 @@ function TopicCreate(){
                 'Authorization':"Bearer " + sessionStorage.getItem("token")
             },
             body:JSON.stringify({
-                title:form.Title.value,
-                description:form.Description.value,
+                Title:form.Title.value,
+                Description:form.Description.value,
             })
         })
         .then((response) => {
@@ -33,8 +33,13 @@ function TopicCreate(){
                 else{
                     alert("Error:"+response.status+"\nMessage:"+response.statusText)
                 }
-            }
+            }else{
+                return response.json()
+            }       
+        }).then((data)=>{
+            navigate('/topics/'+data.id+'/threads')
         })
+
 
 
     }

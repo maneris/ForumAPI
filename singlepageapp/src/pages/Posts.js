@@ -7,7 +7,6 @@ import LogoImage from '../functionalComponents/ContentImg2.jpg'
 
 function Posts () {
     const [post,setPost] = useState(null);
-    const [showEditModal,setShowEditModal] = useState(false);
     const [loading, setLoading] = useState(true);
     const navigate = useNavigate();
     const params=useParams();
@@ -40,7 +39,11 @@ function Posts () {
             setLoading(false);
             console.log(data);
         });
-    }, [])
+    }, [loading])
+
+    function Reload(){
+        setLoading(true);
+    }
 
     async function Delete(){
         await fetch(process.env.REACT_APP_API+'topics/'+params.topicsId+"/threads/"+params.threadsId+"/posts/"+params.postsId,{
@@ -63,13 +66,13 @@ function Posts () {
                     alert("Error:"+response.status+"\nMessage:"+response.statusText)
                 }
             }else{
-                navigate('/topics/'+params.topicsId+"/threads"+params.threadsId+"/posts");
+                navigate('/topics/'+params.topicsId+"/threads/"+params.threadsId+"/posts");
             }          
         })
     }
 
     return(
-        <div className='container col-md-10 offset-md-1 mt-5 mb-5 p-3 ' style={{ backgroundImage: `url(${LogoImage})`, backgroundSize:`cover`, backgroundRepeat:'no-repeat', backgroundPosition:'center', height:'100%' }}>
+        <div className='container col-md-10 offset-md-1 mt-5 mb-5 p-3 ' style={{ backgroundImage: `url(${LogoImage})`, backgroundSize:`cover`, backgroundRepeat:'no-repeat', backgroundPosition:'center', height:'fit-content' }}>
         {loading ? (
             <div style={{color:'rgb(255,255,255)'}}>
             <Spinner animation="border" role="status">
@@ -82,7 +85,7 @@ function Posts () {
                 <p className='description'>{post.description}</p>
                 <div className='container-fluid d-flex justify-content-end'>
                 <div className='btn-group' >
-                    <EditModal Description={post.description}/>
+                    <EditModal Description={post.description} reload={()=>Reload()}/>
                     <button type="button" className='btn btn-secondary' onClick={()=>Delete()} >Delete</button>
                 </div>
                 </div>  

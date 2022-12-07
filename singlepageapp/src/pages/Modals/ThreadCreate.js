@@ -12,15 +12,15 @@ function ThreadCreate(){
         event.preventDefault()
         const form = event.currentTarget;
         fetch(process.env.REACT_APP_API+'topics/'+params.topicsId+"/threads",{
-            method:'Post',
+            method:'post',
             headers:{
                 'Accept':'application/json',
                 'Content-Type':'application/json',
                 'Authorization':"Bearer " + sessionStorage.getItem("token")
             },
             body:JSON.stringify({
-                title:form.Title.value,
-                description:form.Description.value,
+                Title:form.Title.value,
+                Description:form.Description.value,
             })
         })
         .then((response) => {
@@ -33,8 +33,13 @@ function ThreadCreate(){
                 else{
                     alert("Error:"+response.status+"\nMessage:"+response.statusText)
                 }
-            }
+            }else{
+                return response.json()
+            }       
+        }).then((data)=>{
+            navigate('/topics/'+params.topicsId+"/threads/"+data.id+'/posts')
         })
+
 
 
     }

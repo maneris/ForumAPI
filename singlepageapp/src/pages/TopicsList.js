@@ -35,9 +35,7 @@ function TopicsList(){
             console.log(data);
         });
     }, [])
-    function NavigateToPage(int){
-        navigate(''+int);
-    }
+
 
     return(
         <div className="container col-md-10 offset-md-1 mt-5" >

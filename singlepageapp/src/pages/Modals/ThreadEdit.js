@@ -11,7 +11,7 @@ function ThreadCreate(props){
     const handleSubmit= (event) =>{
         event.preventDefault()
         const form = event.currentTarget;
-        fetch(process.env.REACT_APP_API+'topics/'+params.topicsId+"/threads"+params.threadsId,{
+        fetch(process.env.REACT_APP_API+'topics/'+params.topicsId+"/threads/"+params.threadsId,{
             method:'put',
             headers:{
                 'Accept':'application/json',
@@ -19,8 +19,8 @@ function ThreadCreate(props){
                 'Authorization':"Bearer " + sessionStorage.getItem("token")
             },
             body:JSON.stringify({
-                title:props.Title,
-                description:form.Description.value,
+                Title:props.Title,
+                Description:form.Description.value,
             })
         })
         .then((response) => {
@@ -33,6 +33,9 @@ function ThreadCreate(props){
                 else{
                     alert("Error:"+response.status+"\nMessage:"+response.statusText)
                 }
+            }else{
+                handleClose();
+                props.reload();
             }
         })
 

@@ -40,7 +40,7 @@ function Threads () {
             setLoading(false);
             console.log(data);
         });
-    }, [])
+    }, [loading])
     async function Delete(){
         await fetch(process.env.REACT_APP_API+'topics/'+params.topicsId+"/threads/"+params.threadsId,{
             method:'delete',
@@ -66,7 +66,9 @@ function Threads () {
             }          
         })
     }
-
+    function Reload(){
+        setLoading(true);
+    }
 
     return(
         <div className='container col-md-10 offset-md-1 mt-5 mb-5 p-3' style={{ backgroundImage: `url(${LogoImage})`, backgroundSize:`cover`, backgroundRepeat:'no-repeat', backgroundPosition:'center', height:'100%' }}>
@@ -82,7 +84,7 @@ function Threads () {
                 <p className='description'>{thread.description}</p>
                 <div className='container-fluid d-flex justify-content-end'>
                     <div className='btn-group' >
-                        <ThreadEdit Title={thread.title} Description={thread.description}/>
+                        <ThreadEdit Title={thread.title} Description={thread.description} reload={()=>Reload()}/>
                         <button type="button" className='btn btn-secondary' onClick={()=>Delete()} >Delete</button>
                         <PostCreate />
                     </div>

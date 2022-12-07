@@ -62,7 +62,7 @@ namespace ForumAPI.Controllers
         // POST api/v1/topics/{topicId}/threads
         [HttpPost]
         [Authorize(Roles = ForumRoles.AuthForumUser)]
-        public async Task<ActionResult<ThreadDto>> Post(int topicId, Threads createThread)
+        public async Task<ActionResult<ThreadDto>> Post(int topicId, CreateThreadDto createThread)
         {
             Topics topic = await _topicsRepository.GetAsync(topicId);
             var thread = new Threads
@@ -73,7 +73,7 @@ namespace ForumAPI.Controllers
                 UserId = User.FindFirstValue(JwtRegisteredClaimNames.Sub),
                 TopicId = topicId
             };
-            await _threadsRepository.InsertAsync(createThread);
+            await _threadsRepository.InsertAsync(thread);
             return Created("", new ThreadDto(thread.Id,thread.Title,thread.Description,thread.CreationDateTime));
 
         }

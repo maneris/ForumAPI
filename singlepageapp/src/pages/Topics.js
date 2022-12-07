@@ -35,7 +35,7 @@ function Topics () {
             setLoading(false);
             console.log(data);
         });
-    }, [])
+    }, [loading])
 
     async function Delete(){
         await fetch(process.env.REACT_APP_API+'topics/'+params.topicsId,{
@@ -62,7 +62,9 @@ function Topics () {
             }          
         })
     }
-
+    function Reload(){
+        setLoading(true);
+    }
 
     return(
         <div className='container col-md-10 offset-md-1 mt-5 mb-5 p-3 ' style={{ backgroundImage: `url(${LogoImage})`, backgroundSize:`cover`, backgroundRepeat:'no-repeat', backgroundPosition:'center', height:'100%'}}>
@@ -78,7 +80,7 @@ function Topics () {
                     <p className='description'>{topic.description}</p>
                     <div className='container-fluid d-flex justify-content-end'>
                     <div className='btn-group' >
-                        <TopicEdit Title={topic.title} Description={topic.description}/>
+                        <TopicEdit Title={topic.title} Description={topic.description} reload={()=>Reload()}/>
                         <button type="button" className='btn btn-secondary' onClick={()=>Delete()} >Delete</button>
                         <ThreadCreate/>
                     </div>
