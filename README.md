@@ -54,3 +54,6 @@
 
 4. Authorizacija
 	api naudoja JWT tokenus vartotojų authentifikacijai ir authorizacijai. Sistemoje yra 3 roles (AnonGuest, RegisteredUser, Admin), AnonGuest vartotojai gauna tokenus 30 min, o RegisteredUser ir admin 1h.
+
+5. Front endas
+	Forumo vaizdavimo padarytas su React.js pasitelkinat Bootstrap paprastiasniai vizualizacijai ir funkcianalumui įgyvendinti. WEB puslapis yra hostinas ant Azure ir pasiekiamas adresu: https://reactfront12.azurewebsites.net. WEB Puslapį sudaro 6 skirtingi puslapiai pasiekiami nurodant tinkamus URL-us arba naudojantis teikiama komponentų navigacija. Pateikus netinkma URL lankitojas bus nukreiptas į prisijungimo langą.  
